@@ -1,0 +1,38 @@
+<p-button label="Novo Cliente" icon="pi pi-plus" (click)="showCreateModal()"></p-button>
+
+<p-table [value]="clientes">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-cliente>
+    <tr>
+      <td>{{ cliente.nome }}</td>
+      <td>{{ cliente.email }}</td>
+      <td>
+        <p-button icon="pi pi-pencil" (click)="showEditModal(cliente)"></p-button>
+        <p-button icon="pi pi-trash" severity="danger" (click)="deleteItem(cliente)"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="displayModal" [header]="isEdit ? 'Editar Cliente' : 'Novo Cliente'" [modal]="true" [style]="{width: '300px'}">
+  <form [formGroup]="clienteForm" (ngSubmit)="save()">
+    <div class="p-field">
+      <label for="nome">Nome</label>
+      <input pInputText id="nome" formControlName="nome" />
+    </div>
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input pInputText id="email" formControlName="email" />
+    </div>
+    <p-button label="Salvar" type="submit"></p-button>
+    <p-button label="Cancelar" (click)="displayModal = false"></p-button>
+  </form>
+</p-dialog>
+
+<p-confirmDialog></p-confirmDialog>

@@ -1,0 +1,38 @@
+<p-button label="Novo Pet" icon="pi pi-plus" (click)="showCreateModal()"></p-button>
+
+<p-table [value]="pets">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nome</th>
+      <th>Especie</th>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-pet>
+    <tr>
+      <td>{{ pet.nome }}</td>
+      <td>{{ pet.especie }}</td>
+      <td>
+        <p-button icon="pi pi-pencil" (click)="showEditModal(pet)"></p-button>
+        <p-button icon="pi pi-trash" severity="danger" (click)="deleteItem(pet)"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="displayModal" [header]="isEdit ? 'Editar Pet' : 'Novo Pet'" [modal]="true" [style]="{width: '300px'}">
+  <form [formGroup]="petForm" (ngSubmit)="save()">
+    <div class="p-field">
+      <label for="nome">Nome</label>
+      <input pInputText id="nome" formControlName="nome" />
+    </div>
+    <div class="p-field">
+      <label for="especie">Especie</label>
+      <input pInputText id="especie" formControlName="especie" />
+    </div>
+    <p-button label="Salvar" type="submit"></p-button>
+    <p-button label="Cancelar" (click)="displayModal = false"></p-button>
+  </form>
+</p-dialog>
+
+<p-confirmDialog></p-confirmDialog>
